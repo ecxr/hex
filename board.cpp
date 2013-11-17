@@ -38,9 +38,11 @@ class Board
       // TODO initialize node values to unplayed
     }
 
-    bool checkMove(int move); // is the proposed move legal?
-    void checkWin(); // check if latest move makes the last player win
-    void recordMove(int player, int move); // saves the move
+    bool checkMove(int move) { return true; } // is the proposed move legal?
+    bool checkWin() { return false; } // check if latest move makes the last player win
+    void recordMove(int player, int move) {
+      board[move / size][move / size] = player;
+    } // saves the move
 
     friend ostream& operator<<(ostream& out, Board b)
     {

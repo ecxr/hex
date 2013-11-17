@@ -11,12 +11,44 @@ using namespace std;
 class Hex
 {
   public:
-    Hex()
-    {}
+    Hex(int size = 11) {
+      board = new Board(size);
 
-    Player* runMatch(); // returns winner of the match
-    void nextPlayer(); // changes who is the current player
-    void refresh(); // redraws the board, along with any messages necessary
+      player1 = new Player();
+      player2 = new Player();
+      //player1->getName();
+      //player2->getName();
+    }
+
+    Player* runMatch() {
+      current = player1;
+      while (1) {
+        refresh();
+        int move;
+        // repeat until we have a legal move
+        while (!board->checkMove(move = current->getMove()))
+            ;
+
+        board->recordMove(current->getID(), move);
+        if (board->checkWin())
+          // winner, break while (1)
+          break; 
+        
+        nextPlayer();
+      }
+
+      return current;
+    }
+
+    // changes who is the current player
+    void nextPlayer() {
+      if (current == player1) current = player2;
+      else                    current = player1;
+    }
+
+    void refresh() {
+      cout << (*board) << endl;
+    } // redraws the board, along with any messages necessary
 
     friend ostream& operator<<(ostream& out, Hex hex)
     {
@@ -24,6 +56,7 @@ class Hex
       return out;
     }
   private:
+    string message;
     Board* board;
     Player* current;
     Player* player1;
