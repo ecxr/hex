@@ -35,9 +35,13 @@ public:
             }
 
             board->recordMove(current, move);
-            if (board->checkWin())
+            bool isWon = board->checkWin();
+
+            if (isWon)
+            {
                 return current;
                 break;
+            }
 
             nextPlayer();
         }

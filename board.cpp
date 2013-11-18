@@ -71,8 +71,10 @@ public:
         {
             ShortestPath sp(graph1, i);
             // is there a path to any bottom edged row?
+            unsigned int path_size;
             path = sp.pathTo(size*size-1-i);
-            if (path.size() >= size)
+            path_size = path.size();
+            if (path_size >= size && path_size != INFINITY)
             {
                 cout << "Shortest Path found from " << i << " to " << size*size-1-i;
                 return true;
@@ -86,8 +88,10 @@ public:
         {
             ShortestPath sp(graph2, i*size);
             // is there a path to any right-edge row?
+            unsigned int path_size;
             path = sp.pathTo((i+1)*size - 1);
-            if (path.size() >= size)
+            path_size = path.size();
+            if (path_size >= size && path_size != INFINITY)
             {
                 cout << "Shortest Path found from " << i << " to " << size*size-1-i;
                 return true;
@@ -138,7 +142,7 @@ public:
         // Are we a upper left corner tile?
         if (i == 0 && j == 0)
         {
-            // cout << "Top Left Corner" << endl;
+            cout << "Top Left Corner" << endl;
             // neighbors are E, SE
             connect(player, g, move, E);
             connect(player, g, move, SE);
@@ -146,7 +150,7 @@ public:
         // Are we an upper right corner tile?
         else if (i == 0 && j == size - 1)
         {
-            // cout << "Top Right Corner" << endl;
+            cout << "Top Right Corner" << endl;
             // neighbors are W, SW, SE
             connect(player, g, move, W);
             connect(player, g, move, SW);
@@ -155,7 +159,7 @@ public:
         // Are we a lower left corner tile?
         else if (i == size - 1 && j == 0)
         {
-            // cout << "Bottom Left Corner" << endl;
+            cout << "Bottom Left Corner" << endl;
             // neighbors are NW, NE, E
             connect(player, g, move, NW);
             connect(player, g, move, NE);
@@ -164,7 +168,7 @@ public:
         // Are we a lower right corner tile?
         else if (i == size - 1 && j == size - 1)
         {
-            // cout << "Bottom Right Corner" << endl;
+            cout << "Bottom Right Corner" << endl;
             // neighbors are W, NW
             connect(player, g, move, W);
             connect(player, g, move, NW);
@@ -172,7 +176,7 @@ public:
         // Are we top edge tile?
         else if (i == 0)
         {
-            // cout << "Top Edge Tile" << endl;
+            cout << "Top Edge Tile" << endl;
             // neighbors are W, E, SW, SE
             connect(player, g, move, E);
             connect(player, g, move, E);
@@ -182,7 +186,7 @@ public:
         // Are we a bottom edge tile
         else if (i == size - 1)
         {
-            // cout << "Bottom Edge Tile" << endl;
+            cout << "Bottom Edge Tile" << endl;
             // neighbors are W, E, NW, NE
             connect(player, g, move, W);
             connect(player, g, move, E);
@@ -192,7 +196,7 @@ public:
         // Are we a left  edge tile?
         else if (j == 0)
         {
-            // cout << "Left Edge Tile" << endl;
+            cout << "Left Edge Tile" << endl;
             // neighbors are NW, NE, E, SE
             connect(player, g, move, NW);
             connect(player, g, move, NE);
@@ -202,7 +206,7 @@ public:
         // Are we a right edge tile?
         else if (j == size-1)
         {
-            // cout << "Right Edge Tile" << endl;
+            cout << "Right Edge Tile" << endl;
             // neighbors are NW, W, SW, SE
             connect(player, g, move, NW);
             connect(player, g, move, W);
@@ -212,7 +216,7 @@ public:
         // Otherwise its a center tile with all 6 degrees of freedom
         else
         {
-            // cout << "Middle Tile" << endl;
+            cout << "Middle Tile" << endl;
             // neighbors are W, NW, NE, E, SE, SW
             connect(player, g, move, W);
             connect(player, g, move, NW);
